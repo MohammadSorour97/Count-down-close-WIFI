@@ -26,7 +26,6 @@ public class MyService extends Service {
     private int timeRemaining;
     private Timer timer;
 
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
