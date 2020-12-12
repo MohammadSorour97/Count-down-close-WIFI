@@ -26,7 +26,6 @@ import java.util.Locale;
 public class MyService extends Service {
     private WifiManager wifiManager;
     private int timeRemaining;
-
     private static final String channel_id = "Notification Channel";
     private BroadcastReceiver broadcastReceiver;
     private CountDownTimer countDownTimer;
