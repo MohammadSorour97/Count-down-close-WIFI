@@ -3,6 +3,7 @@ package com.example.countdownclosewifi.UI;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -49,42 +50,36 @@ public class MainActivity extends AppCompatActivity {
         binding.start.setOnClickListener(view -> {
             String hours = binding.setTimeHours.getText().toString();
             String minutes = binding.setTimeMinutes.getText().toString();
-
+            Intent serviceIntent = new Intent(this, MyService.class);
             int ihours, iminutes;
             if (minutes.equals("0") && hours.equals("0") || minutes.isEmpty() && hours.isEmpty()) {
                 Toast.makeText(MainActivity.this, "Enter the duration", Toast.LENGTH_SHORT).show();
             } else if (!minutes.isEmpty() && !minutes.equals("0") && !hours.isEmpty() && !hours.equals("0")) {
                 ihours = Integer.parseInt(binding.setTimeHours.getText().toString());
                 iminutes = Integer.parseInt(binding.setTimeMinutes.getText().toString());
-
-                Intent serviceIntent = new Intent(this, MyService.class);
                 int time = ihours * 60 * 60 * 1000 + iminutes * 60 * 1000;
                 serviceIntent.putExtra("Time", time);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     startForegroundService(serviceIntent);
-
                 } else {
                     startService(serviceIntent);
                 }
             } else if (!minutes.isEmpty() && !minutes.equals("0")) {
                 iminutes = Integer.parseInt(binding.setTimeMinutes.getText().toString());
-                Intent serviceIntent = new Intent(this, MyService.class);
+
                 int time = iminutes * 60 * 1000;
                 serviceIntent.putExtra("Time", time);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     startForegroundService(serviceIntent);
-
                 } else {
                     startService(serviceIntent);
                 }
             } else if (!hours.isEmpty() && !hours.equals("0")) {
                 ihours = Integer.parseInt(binding.setTimeHours.getText().toString());
-                Intent serviceIntent = new Intent(this, MyService.class);
                 int time = ihours * 60 * 60 * 1000;
                 serviceIntent.putExtra("Time", time);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     startForegroundService(serviceIntent);
-
                 } else {
                     startService(serviceIntent);
                 }
@@ -94,12 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
         binding.stop.setOnClickListener(view -> {
             if (timeFormat != null) {
+                timeFormat = null;
                 Intent stop = new Intent();
                 stop.setAction("Stop");
                 sendBroadcast(stop);
-
-                Intent serviceIntent = new Intent(MainActivity.this, MyService.class);
-                stopService(serviceIntent);
 
                 // Vibrate for 500 milliseconds
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

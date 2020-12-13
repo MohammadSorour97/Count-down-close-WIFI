@@ -54,6 +54,7 @@ public class MyService extends Service {
             @Override
             public void onReceive(Context context, Intent intent) {
                 countDownTimer.cancel();
+                stopSelf();
             }
         };
         registerReceiver(broadcastReceiver, intentFilter);
