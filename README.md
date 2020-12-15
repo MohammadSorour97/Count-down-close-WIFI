@@ -2,7 +2,7 @@
 This is a test project to Implement a foreground service with ongoing notification andCount down timer to close the wifi after a specific time that's selected by the user
 
 
-This app can run normaly on android 5 (Lollipop) and the target SDK for it is android 10 (Q)
+This app can run normaly on android 4 (Jelly Bean) and the target SDK for it is android 9 (P)
 * Used Libraries 
 
   * Service
